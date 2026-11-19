@@ -98,9 +98,11 @@
   stages.forEach(function (s, i) {
     var a = document.createElement("a");
     a.className = "stage";
-    a.href = "https://docs.google.com/document/d/" + s[1] + "/edit";
-    a.target = "_blank";
-    a.rel = "noopener";
+    // Opens in the Google Docs app; if the app isn't there, falls back to the browser
+    var path = "docs.google.com/document/d/" + s[1] + "/edit";
+    a.href = "intent://" + path +
+      "#Intent;scheme=https;package=com.google.android.apps.docs.editors.docs;" +
+      "S.browser_fallback_url=" + encodeURIComponent("https://" + path) + ";end";
     var n = document.createElement("span");
     n.className = "num";
     n.textContent = i + 1;
